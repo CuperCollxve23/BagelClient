@@ -408,17 +408,18 @@
         <div class="tagline">Best EaglerCraft Client! (BETA Release 1.1)</div>
 
         <div class="launch-box">
-            <button class="launch-btn" id="launchBtn">Launch 1.12.2</button>
-            <button class="launch-btn" id="openDirectBtn" style="background:#2196F3;margin-left:10px;">Open Direct</button>
+            <button class="launch-btn" id="launchBtn">Launch WASM</button>
+            <button class="launch-btn" id="openDirectBtn" style="background:#2196F3;margin-left:10px;">Open WASM Direct</button>
             <div class="divider"></div>
             <select class="version-dropdown" id="versionSelect">
-                <option value="js" selected>1.12.2 Web Client</option>
+                <option value="wasm" selected>1.12.2 WASM only</option>
             </select>
         </div>
         <div class="help-note">
             <p>Use a local server to run this page. Example:</p>
             <code>python3 -m http.server 8000</code>
-            <p>Then open <strong>http://127.0.0.1:8000</strong>. If typing does not work, click inside the game window.</p>
+            <p>Then open <strong>http://127.0.0.1:8000</strong>. This launcher now loads the WASM-only client.</p>
+            <p>If your browser does not support WebAssembly.Suspending / JSPI, the page may show an alert.</p>
         </div>
     </div>
 
@@ -441,7 +442,7 @@
         const gameContainer = document.getElementById('game-container');
         const gameFrame = document.getElementById('game-frame');
 
-        const targetSrc = './eaglercrat-1.12-src/javascript/index.html';
+        const targetSrc = './eaglercrat-1.12-src/wasm_gc_teavm/javascript/index.html';
 
         discordBtn.addEventListener('click', () => {
             window.open('https://discord.gg/bagelsmp', '_blank');
