@@ -206,6 +206,32 @@
             color: #888;
         }
 
+        .help-note {
+            max-width: 520px;
+            margin: 18px auto 0;
+            padding: 14px 18px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px;
+            color: rgba(255,255,255,0.9);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .help-note code {
+            display: block;
+            margin-top: 10px;
+            padding: 10px 12px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 8px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+            color: #fff;
+        }
+
+        .help-note strong {
+            color: #fff;
+        }
+
         .footer {
             display: flex;
             justify-content: space-between;
@@ -383,11 +409,16 @@
 
         <div class="launch-box">
             <button class="launch-btn" id="launchBtn">Launch 1.12.2</button>
+            <button class="launch-btn" id="openDirectBtn" style="background:#2196F3;margin-left:10px;">Open Direct</button>
             <div class="divider"></div>
             <select class="version-dropdown" id="versionSelect">
-                <option value="wasm" selected>1.12.2 WASM-GC</option>
-                <option value="js" disabled>1.12.2 JS (Soon)</option>
+                <option value="js" selected>1.12.2 Web Client</option>
             </select>
+        </div>
+        <div class="help-note">
+            <p>Use a local server to run this page. Example:</p>
+            <code>python3 -m http.server 8000</code>
+            <p>Then open <strong>http://127.0.0.1:8000</strong>. If typing does not work, click inside the game window.</p>
         </div>
     </div>
 
@@ -402,12 +433,15 @@
     <script>
         const discordBtn = document.getElementById('discordBtn');
         const launchBtn = document.getElementById('launchBtn');
+        const openDirectBtn = document.getElementById('openDirectBtn');
         const versionSelect = document.getElementById('versionSelect');
         const loadingScreen = document.getElementById('loadingScreen');
         const progressFill = document.getElementById('progressFill');
         const loadingText = document.getElementById('loadingText');
         const gameContainer = document.getElementById('game-container');
         const gameFrame = document.getElementById('game-frame');
+
+        const targetSrc = './eaglercrat-1.12-src/javascript/index.html';
 
         discordBtn.addEventListener('click', () => {
             window.open('https://discord.gg/bagelsmp', '_blank');
@@ -423,24 +457,19 @@
         });
 
         launchBtn.addEventListener('click', () => {
-            const targetSrc = './eaglercrat-1.12-src/javascript/index.html';
+            if (window.location.protocol === 'file:') {
+                alert('Please run this page from a local server, not directly from the file system.');
+                return;
+            }
+            window.location.href = targetSrc;
+        });
 
-            loadingScreen.classList.add('show');
-            progressFill.style.width = '0%';
-            loadingText.textContent = 'Preparing EaglerCraft...';
-            gameContainer.style.display = 'block';
-            gameFrame.src = targetSrc;
-
-            let progress = 0;
-            const progressTimer = setInterval(() => {
-                if (progress >= 95) {
-                    clearInterval(progressTimer);
-                    return;
-                }
-                progress += Math.floor(Math.random() * 10) + 5;
-                progressFill.style.width = Math.min(progress, 95) + '%';
-                loadingText.textContent = `Loading EaglerCraft (${Math.min(progress, 95)}%)...`;
-            }, 160);
+        openDirectBtn.addEventListener('click', () => {
+            if (window.location.protocol === 'file:') {
+                alert('Please run this page from a local server, not directly from the file system.');
+                return;
+            }
+            window.open(targetSrc, '_blank');
         });
     </script>
 </body>
