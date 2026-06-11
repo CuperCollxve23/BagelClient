@@ -342,7 +342,7 @@
 <body>
 
     <div id="game-container">
-        <iframe id="game-frame" src="" allow="autoplay; gamepad; fullscreen; microphone; clipboard-read; clipboard-write"></iframe>
+        <iframe id="game-frame" tabindex="0" src="" allow="autoplay; gamepad; fullscreen; microphone; clipboard-read; clipboard-write"></iframe>
     </div>
 
     <img class="background" src="https://i.imgur.com/HMEhRwZ.jpeg" alt="Background">
@@ -416,6 +416,7 @@
         gameFrame.addEventListener('load', () => {
             loadingText.textContent = 'EaglerCraft is ready.';
             progressFill.style.width = '100%';
+            gameFrame.focus();
             setTimeout(() => {
                 loadingScreen.classList.remove('show');
             }, 450);
